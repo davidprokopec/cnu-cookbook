@@ -47,6 +47,7 @@ export const RecipeDetailPage = () => {
       isLoading: true,
       isError: false,
     });
+
     api
       .get('recipes/' + slug)
       .then(onFetchSuccess)
@@ -65,10 +66,10 @@ export const RecipeDetailPage = () => {
     <>
       <Box p={5}>
         <Flex flexWrap="wrap" alignItems="center">
-          <Heading flex="1" mb={2}>
+          <Heading flex="1" mb={2} color="dodgerblue">
             {recipe.data?.title}
           </Heading>
-          <Flex mb={3}>
+          <Flex mb={3} gap={3}>
             <Link to="upravit">
               <Button
                 leftIcon={<EditIcon />}
@@ -81,7 +82,6 @@ export const RecipeDetailPage = () => {
             <Button
               leftIcon={<DeleteIcon />}
               colorScheme="red"
-              ml={5}
               onClick={onOpen}
             >
               Smazat
@@ -118,7 +118,7 @@ export const RecipeDetailPage = () => {
             </Box>
           </Flex>
         </Flex>
-        <Text color="grey" pt={5}>
+        <Text color="grey" mt={5}>
           Naposledy upraveno:{' '}
         </Text>
         <Text>

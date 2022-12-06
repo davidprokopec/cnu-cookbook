@@ -8,6 +8,7 @@ import { NotFoundPage } from './pages/NotFoundPage';
 import { RecipeListPage } from './pages/RecipeListPage';
 import { RecipeDetailPage } from './pages/RecipeDetailPage';
 import { RecipeEditPage } from './pages/RecipeEditPage';
+import { NewRecipePage } from './pages/NewRecipePage';
 
 export function App() {
   return (
@@ -17,7 +18,8 @@ export function App() {
           <Routes>
             <Route path="/" element={<RecipeListPage />} />
             <Route path="/recept/:slug" element={<RecipeDetailPage />} />
-            <Route path="recept/:slug/upravit" element={<RecipeEditPage />} />
+            <Route path="/recept/:slug/upravit" element={<RecipeEditPage />} />
+            <Route path="/recept/novy" element={<NewRecipePage />} />
             <Route path="/api-test" element={<ApiTestPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

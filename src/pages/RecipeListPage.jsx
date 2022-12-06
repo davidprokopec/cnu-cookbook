@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Flex, Heading, Input, SimpleGrid } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  SimpleGrid,
+  Input,
+} from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 import '../style.css';
 import { RecipeCard } from '../components/RecipeCard';
 import { api } from '../api';
@@ -43,10 +51,12 @@ export function RecipeListPage() {
         <Heading my={4} color="dodgerblue">
           Recepty
         </Heading>
-        <Button colorScheme="teal" variant="solid">
-          <FontAwesomeIcon icon={faPlus} />
-          Nový recept
-        </Button>
+        <Link to="/recept/novy">
+          <Button colorScheme="teal" variant="outline">
+            <FontAwesomeIcon icon={faPlus} />
+            <Box ml={2}>Nový recept</Box>
+          </Button>
+        </Link>
       </Flex>
 
       <Input
