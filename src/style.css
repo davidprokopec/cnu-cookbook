@@ -1,0 +1,24 @@
+.card {
+  width: 400px;
+  height: 300px;
+  background-color: yellow;
+  margin: 10px;
+}
+
+.card-img {
+  height: 80%;
+}
+
+.card-deck {
+  display: flex;
+}
+
+li {
+  padding: 5px;
+}
+
+li::marker {
+  font-weight: bold;
+  font-size: 1rem;
+  color: dodgerblue;
+}
