@@ -1,5 +1,5 @@
 import { DeleteIcon, DragHandleIcon } from '@chakra-ui/icons';
-import { Box, Button, Flex, Text } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 
 export const CustomSortableItem = ({
   id,
@@ -19,10 +19,18 @@ export const CustomSortableItem = ({
         borderTop="1px solid rgb(222, 226, 230)"
       >
         <Flex alignItems="center" mt={1}>
-          <DeleteIcon justifySelf="flex-start" color="red" />
+          <DeleteIcon
+            onClick={() => {
+              console.log('smazano ' + id);
+              handleRemoveIngredient(id);
+            }}
+            justifySelf="flex-start"
+            color="red"
+          />
           <Flex w="100%" justifyContent="center" alignItems="center">
             <Text fontWeight="bold">{name}</Text>
           </Flex>
+          <DragHandleIcon />
         </Flex>
       </Flex>
     );
@@ -36,15 +44,15 @@ export const CustomSortableItem = ({
         borderTop="1px solid rgb(222, 226, 230)"
       >
         <Flex alignItems="center" mt={1}>
-          <Button
+          <DeleteIcon
+            justifySelf="flex-start"
+            color="red"
             onClick={() => {
               console.log('smazano ' + id);
               handleRemoveIngredient(id);
             }}
-            zIndex={1}
-          >
-            <DeleteIcon justifySelf="flex-start" color="red" />
-          </Button>
+          />
+
           <Flex w="100%" justifyContent="space-evenly">
             <Text textAlign="center" flex={2}>
               {amount} {amountUnit}

@@ -12,8 +12,8 @@ import {
   NumberInputStepper,
   Text,
 } from '@chakra-ui/react';
-import { SortableList } from '@thaddeusjiang/react-sortable-list';
-import { useEffect, useState } from 'react';
+import { SortableItem, SortableList } from '@thaddeusjiang/react-sortable-list';
+import { useState } from 'react';
 import { CustomSortableItem } from './CustomSortableItem';
 
 export const SortableIngredients = ({
@@ -71,20 +71,24 @@ export const SortableIngredients = ({
             Zatím žádné ingredience.
           </Text>
         ) : (
-          <SortableList
-            items={ingredients}
-            setItems={setIngredients}
-            itemRender={({ item }) => (
-              <CustomSortableItem
-                id={item.id}
-                name={item.name}
-                amount={item.amount}
-                amountUnit={item.amountUnit}
-                isGroup={item.isGroup}
-                handleRemoveIngredient={handleRemoveIngredient}
-              />
+          <SortableList items={ingredients} setItems={setIngredients}>
+            {({ items }) => (
+              <>
+                {items.map((item) => (
+                  <SortableItem key={item.id} id={item.id}>
+                    <CustomSortableItem
+                      id={item.id}
+                      name={item.name}
+                      amount={item.amount}
+                      amountUnit={item.amountUnit}
+                      isGroup={item.isGroup}
+                      handleRemoveIngredient={handleRemoveIngredient}
+                    />
+                  </SortableItem>
+                ))}
+              </>
             )}
-          />
+          </SortableList>
         )}
 
         <Flex direction="column">

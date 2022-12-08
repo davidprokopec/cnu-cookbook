@@ -20,6 +20,8 @@ import DeleteRecipeDialog from '../components/DeleteRecipeDialog';
 import { PortionCount } from '../components/PortionCount';
 import { IngredientsTable } from '../components/IngredientsTable';
 import { TimeAndSideDishes } from '../components/TimeAndSideDishes';
+import MDEditor from '@uiw/react-md-editor';
+import rehypeSanitize from 'rehype-sanitize';
 
 const DEFAULT_STATE = {
   data: null,
@@ -113,7 +115,12 @@ export const RecipeDetailPage = () => {
                   Žádný postup
                 </Text>
               ) : (
-                <ReactMarkdown>{recipe.data?.directions}</ReactMarkdown>
+                <MDEditor.Markdown
+                  previewOptions={{
+                    rehypePlugins: [[rehypeSanitize]],
+                  }}
+                  source={recipe.data?.directions}
+                />
               )}
             </Box>
           </Flex>
