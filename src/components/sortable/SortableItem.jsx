@@ -1,7 +1,14 @@
 import { DeleteIcon, DragHandleIcon } from '@chakra-ui/icons';
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Text } from '@chakra-ui/react';
 
-export const SortableItem = ({ name, amount, amountUnit, isGroup }) => {
+export const SortableItem = ({
+  id,
+  name,
+  amount,
+  amountUnit,
+  isGroup,
+  handleRemoveIngredient,
+}) => {
   if (isGroup)
     return (
       <Flex
@@ -29,7 +36,15 @@ export const SortableItem = ({ name, amount, amountUnit, isGroup }) => {
         borderTop="1px solid rgb(222, 226, 230)"
       >
         <Flex alignItems="center" mt={1}>
-          <DeleteIcon justifySelf="flex-start" color="red" />
+          <Button
+            onClick={() => {
+              console.log('smazano ' + id);
+              handleRemoveIngredient(id);
+            }}
+            zIndex={1}
+          >
+            <DeleteIcon justifySelf="flex-start" color="red" />
+          </Button>
           <Flex w="100%" justifyContent="space-evenly">
             <Text textAlign="center" flex={2}>
               {amount} {amountUnit}

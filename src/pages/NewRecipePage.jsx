@@ -1,6 +1,9 @@
-import { Button, Flex, Heading } from '@chakra-ui/react';
+import { Button, Flex, Heading, Text } from '@chakra-ui/react';
+import MDEditor from '@uiw/react-md-editor';
 import { useEffect, useState } from 'react';
+import rehypeSanitize from 'rehype-sanitize';
 import { Portions } from '../components/inputs/Portions';
+import { PreparationInput } from '../components/inputs/PreparationInput';
 import { PreparationTime } from '../components/inputs/PreparationTime';
 import { RecipeTitle } from '../components/inputs/RecipeTitle';
 import { SideDishes } from '../components/inputs/SideDishes';
@@ -8,25 +11,19 @@ import { SortableIngredients } from '../components/sortable/SortableIngredients'
 
 export const NewRecipePage = () => {
   const [title, setTitle] = useState('');
-  const [preparationTime, setPreparationTime] = useState();
-  const [portions, setPortions] = useState();
+  const [preparationTime, setPreparationTime] = useState('');
+  const [portions, setPortions] = useState('');
 
   const [sideDishes, setSideDishes] = useState([]);
 
-  const [ingredients, setIngredients] = useState([
-    { id: '1', name: 'kure', amount: 5, amountUnit: 'ks' },
-    { id: '2', name: 'čokoláda (60 % kakaa)', amount: 5, amountUnit: 'ks' },
-    { id: '3', name: 'čokoláda (60 % kakaa)', amount: 5, amountUnit: 'ks' },
-    { id: '4', name: 'čokoláda (60 % kakaa)', amount: 5, amountUnit: 'ks' },
-    { id: '5', name: 'čokoláda (60 % kakaa)', amount: 5, amountUnit: 'ks' },
-    { id: '6', name: 'čokoláda (60 % kakaa)' },
-    { id: '7', name: 'čokoláda (60 % kakaa)', isGroup: true },
-  ]);
+  const [ingredients, setIngredients] = useState([]);
 
-  const [ingredientAmount, setIngredientAmount] = useState();
-  const [ingredientUnit, setIngredientUnit] = useState();
-  const [ingredientName, setIngredientName] = useState();
-  const [groupName, setGroupName] = useState();
+  const [ingredientAmount, setIngredientAmount] = useState('');
+  const [ingredientUnit, setIngredientUnit] = useState('');
+  const [ingredientName, setIngredientName] = useState('');
+  const [groupName, setGroupName] = useState('');
+
+  const [preparation, setPreparation] = useState('');
 
   return (
     <>
@@ -57,7 +54,7 @@ export const NewRecipePage = () => {
             <Portions portions={portions} setPortions={setPortions} />
             <SideDishes sideDishes={sideDishes} setSideDishes={setSideDishes} />
           </Flex>
-          <Flex flex={1} direction="column" ml={5}>
+          <Flex flex={1} direction="column" mx={5}>
             <Heading fontWeight="normal" fontSize="1.5rem">
               Ingredience
             </Heading>
@@ -74,11 +71,26 @@ export const NewRecipePage = () => {
               setGroupName={setGroupName}
             />
           </Flex>
-          <Flex flex={2}>
+          <Flex flex={2} direction="column">
             <Heading fontWeight="normal" fontSize="1.5rem">
-              Základní údaje
+              Postup
             </Heading>
+            <PreparationInput
+              preparation={preparation}
+              setPreparation={setPreparation}
+            />
           </Flex>
+        </Flex>
+        <Flex direction="column">
+          <Heading fontWeight="normal" fontSize="1.5rem">
+            Náhled postupu
+          </Heading>
+          <MDEditor.Markdown
+            previewOptions={{
+              rehypePlugins: [[rehypeSanitize]],
+            }}
+            source={preparation}
+          />
         </Flex>
       </Flex>
     </>

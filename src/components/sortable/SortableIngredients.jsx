@@ -1,6 +1,10 @@
+import { AddIcon } from '@chakra-ui/icons';
 import {
+  Button,
   Flex,
   Input,
+  InputGroup,
+  InputRightAddon,
   NumberDecrementStepper,
   NumberIncrementStepper,
   NumberInput,
@@ -9,6 +13,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { SortableList } from '@thaddeusjiang/react-sortable-list';
+import { useEffect, useState } from 'react';
 import { SortableItem } from './SortableItem';
 
 export const SortableIngredients = ({
@@ -23,21 +28,54 @@ export const SortableIngredients = ({
   groupName,
   setGroupName,
 }) => {
+  const [id, setId] = useState(1);
+
+  const handleAddIngredient = () => {
+    const ingredient = {
+      id,
+      name: ingredientName,
+      amount: ingredientAmount ? parseInt(ingredientAmount) : null,
+      amountUnit: ingredientUnit ? ingredientUnit : null,
+      isGroup: false,
+    };
+    setIngredientName('');
+    setIngredientAmount('');
+    setIngredientUnit('');
+    setIngredients([...ingredients, ingredient]);
+    setId(id + 1);
+  };
+
+  const handleRemoveIngredient = (id) => {
+    const newIngredients = ingredients.filter((obj) => {
+      return obj.id !== id;
+    });
+    setIngredients(newIngredients);
+  };
+
   return (
     <>
       <Flex direction="column" mt={5}>
-        <SortableList
-          items={ingredients}
-          setItems={setIngredients}
-          itemRender={({ item }) => (
-            <SortableItem
-              name={item.name}
-              amount={item.amount}
-              amountUnit={item.amountUnit}
-              isGroup={item.isGroup}
-            />
-          )}
-        />
+        {!ingredients[0] ? (
+          <Text align="center" rounded="full" bg="teal.100" py={2} my={2}>
+            Zatím žádné ingredience.
+          </Text>
+        ) : (
+          <SortableList
+            items={ingredients}
+            setItems={setIngredients}
+            itemRender={({ item }) => (
+              <SortableItem
+                id={item.id}
+                name={item.name}
+                amount={item.amount}
+                amountUnit={item.amountUnit}
+                isGroup={item.isGroup}
+                handleRemoveIngredient={handleRemoveIngredient}
+              />
+            )}
+          />
+        )}
+
         <Flex direction="column">
           <Text fontSize="1.25em" mt={5} mb={2}>
             Přidat ingredienci
@@ -71,6 +109,47 @@ export const SortableIngredients = ({
               />
             </Flex>
           </Flex>
+          <Text mt={1} as="label" htmlFor="Název">
+            Název
+          </Text>
+          <InputGroup>
+            <Input
+              value={ingredientName}
+              onChange={(e) => setIngredientName(e.target.value)}
+            />
+            <InputRightAddon
+              p={0}
+              children={
+                <Button
+                  disabled={!ingredientName}
+                  px={10}
+                  onClick={handleAddIngredient}
+                >
+                  <AddIcon />
+                </Button>
+              }
+            />
+          </InputGroup>
+          <Text fontSize="1.25em" mt={5} mb={2}>
+            Přidat skupinu
+          </Text>
+          <Text mt={1} as="label" htmlFor="Název">
+            Název
+          </Text>
+          <InputGroup>
+            <Input
+              value={groupName}
+              onChange={(e) => setGroupName(e.target.value)}
+            />
+            <InputRightAddon
+              p={0}
+              children={
+                <Button disabled={!groupName} px={10}>
+                  <AddIcon />
+                </Button>
+              }
+            />
+          </InputGroup>
         </Flex>
       </Flex>
     </>
