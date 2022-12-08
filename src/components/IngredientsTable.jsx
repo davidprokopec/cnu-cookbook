@@ -1,6 +1,6 @@
 import { Table, TableContainer, Tbody, Td, Text, Tr } from '@chakra-ui/react';
 
-export const IngredienceTable = ({ recipe, porce }) => {
+export const IngredientsTable = ({ recipe, porce }) => {
   return (
     <>
       {!recipe.data?.ingredients[0] ? (

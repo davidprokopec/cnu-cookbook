@@ -1,19 +1,19 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
-
-import { AppLayout } from './components/AppLayout';
+import { AppLayout } from './components/layout/AppLayout';
 import { ApiTestPage } from './pages/ApiTestPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { RecipeListPage } from './pages/RecipeListPage';
 import { RecipeDetailPage } from './pages/RecipeDetailPage';
 import { RecipeEditPage } from './pages/RecipeEditPage';
 import { NewRecipePage } from './pages/NewRecipePage';
+import theme from './theme';
 
 export function App() {
   return (
     <BrowserRouter>
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
         <AppLayout>
           <Routes>
             <Route path="/" element={<RecipeListPage />} />

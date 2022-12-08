@@ -9,8 +9,8 @@ import {
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { api } from '../api';
-import { Error } from '../components/Error';
-import { Loading } from '../components/Loading';
+import { Error } from '../components/layout/Error';
+import { Loading } from '../components/layout/Loading';
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import '../style.css';
@@ -18,7 +18,7 @@ import moment from 'moment';
 import 'moment/locale/cs';
 import DeleteRecipeDialog from '../components/DeleteRecipeDialog';
 import { PortionCount } from '../components/PortionCount';
-import { IngredienceTable } from '../components/IngredienceTable';
+import { IngredientsTable } from '../components/IngredientsTable';
 import { TimeAndSideDishes } from '../components/TimeAndSideDishes';
 
 const DEFAULT_STATE = {
@@ -104,7 +104,7 @@ export const RecipeDetailPage = () => {
                 height: 0.05,
               }}
             />
-            <IngredienceTable recipe={recipe} porce={portions} />
+            <IngredientsTable recipe={recipe} porce={portions} />
           </Flex>
           <Flex flex="2" direction="column">
             <Box ml={5}>

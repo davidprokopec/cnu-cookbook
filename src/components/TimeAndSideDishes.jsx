@@ -8,7 +8,11 @@ export const TimeAndSideDishes = ({ recipe }) => {
   return (
     <>
       <TimeIcon />
-      <Text ml={2}>{convertToHoursAndMins(recipe?.preparationTime)}</Text>
+      <Text ml={2}>
+        {recipe?.preparationTime
+          ? convertToHoursAndMins(recipe?.preparationTime)
+          : 'Žádné údaje'}
+      </Text>
       {recipe?.sideDish ? (
         <Flex
           ml={2}

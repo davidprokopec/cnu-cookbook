@@ -11,10 +11,10 @@ import { Link } from 'react-router-dom';
 import '../style.css';
 import { RecipeCard } from '../components/RecipeCard';
 import { api } from '../api';
-import { Loading } from '../components/Loading';
-import { Error } from '../components/Error';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { Loading } from '../components/layout/Loading';
+import { Error } from '../components/layout/Error';
 
 const DEFAULT_STATE = {
   data: null,
