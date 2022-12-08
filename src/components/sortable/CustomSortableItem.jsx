@@ -1,7 +1,7 @@
 import { DeleteIcon, DragHandleIcon } from '@chakra-ui/icons';
 import { Box, Button, Flex, Text } from '@chakra-ui/react';
 
-export const SortableItem = ({
+export const CustomSortableItem = ({
   id,
   name,
   amount,

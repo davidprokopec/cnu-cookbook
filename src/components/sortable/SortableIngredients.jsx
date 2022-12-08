@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react';
 import { SortableList } from '@thaddeusjiang/react-sortable-list';
 import { useEffect, useState } from 'react';
-import { SortableItem } from './SortableItem';
+import { CustomSortableItem } from './CustomSortableItem';
 
 export const SortableIngredients = ({
   ingredients,
@@ -45,6 +45,17 @@ export const SortableIngredients = ({
     setId(id + 1);
   };
 
+  const handleAddGroup = () => {
+    const group = {
+      id,
+      name: groupName,
+      isGroup: true,
+    };
+    setGroupName('');
+    setIngredients([...ingredients, group]);
+    setId(id + 1);
+  };
+
   const handleRemoveIngredient = (id) => {
     const newIngredients = ingredients.filter((obj) => {
       return obj.id !== id;
@@ -64,7 +75,7 @@ export const SortableIngredients = ({
             items={ingredients}
             setItems={setIngredients}
             itemRender={({ item }) => (
-              <SortableItem
+              <CustomSortableItem
                 id={item.id}
                 name={item.name}
                 amount={item.amount}
@@ -144,7 +155,7 @@ export const SortableIngredients = ({
             <InputRightAddon
               p={0}
               children={
-                <Button disabled={!groupName} px={10}>
+                <Button disabled={!groupName} onClick={handleAddGroup} px={10}>
                   <AddIcon />
                 </Button>
               }
