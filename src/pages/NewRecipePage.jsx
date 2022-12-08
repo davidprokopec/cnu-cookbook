@@ -1,7 +1,10 @@
-import { Button, Flex, Heading, Text } from '@chakra-ui/react';
+import { CheckIcon } from '@chakra-ui/icons';
+import { Button, Flex, Heading } from '@chakra-ui/react';
 import MDEditor from '@uiw/react-md-editor';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import rehypeSanitize from 'rehype-sanitize';
+import { api } from '../api';
 import { Portions } from '../components/inputs/Portions';
 import { PreparationInput } from '../components/inputs/PreparationInput';
 import { PreparationTime } from '../components/inputs/PreparationTime';
@@ -25,6 +28,31 @@ export const NewRecipePage = () => {
 
   const [preparation, setPreparation] = useState('');
 
+  const navigate = useNavigate();
+
+  const handleSave = () => {
+    let sideDish = sideDishes
+      .map((i) => {
+        return ' ' + i['value'];
+      })
+      .toString();
+
+    const recipe = {
+      title,
+      preparationTime,
+      servingCount: portions,
+      sideDish,
+      directions: preparation,
+      isMarkdown: true,
+      ingredients,
+    };
+
+    console.log(recipe);
+    api.post('recipes/', recipe).then(({ data }) => {
+      console.log('response', data);
+    });
+  };
+
   return (
     <>
       <Flex alignItems="center" justifyContent="space-between">
@@ -36,8 +64,18 @@ export const NewRecipePage = () => {
           Nový recept
         </Heading>
         <Flex gap={3}>
-          <Button>ulozit</Button>
-          <Button>zrusit</Button>
+          <Button disabled={!title} onClick={handleSave} colorScheme="green">
+            <CheckIcon mr={2} /> Uložit
+          </Button>
+          <Button
+            onClick={() => {
+              navigate('/');
+            }}
+            variant="outline"
+            colorScheme="red"
+          >
+            Zrušit
+          </Button>
         </Flex>
       </Flex>
       <Flex mt={5} flexWrap="wrap" alignItems="center">
