@@ -1,7 +1,7 @@
 import { CheckIcon } from '@chakra-ui/icons';
 import { Button, Flex, Heading, useToast } from '@chakra-ui/react';
 import MDEditor from '@uiw/react-md-editor';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import rehypeSanitize from 'rehype-sanitize';
 import { api } from '../api';
@@ -87,7 +87,7 @@ export const NewRecipePage = () => {
           fontSize={{ sm: '2rem', md: '3rem' }}
           color="dodgerblue"
         >
-          Nový recept
+          {title ? title : 'Nový recept'}
         </Heading>
         <Flex gap={3}>
           <Button disabled={!title} onClick={handleSave} colorScheme="green">
@@ -157,6 +157,7 @@ export const NewRecipePage = () => {
           />
         </Flex>
       </Flex>
+      ;
     </>
   );
 };

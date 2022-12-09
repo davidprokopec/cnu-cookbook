@@ -12,7 +12,6 @@ import { api } from '../api';
 import { Error } from '../components/layout/Error';
 import { Loading } from '../components/layout/Loading';
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
-import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import '../style.css';
 import moment from 'moment';
 import 'moment/locale/cs';
@@ -106,7 +105,10 @@ export const RecipeDetailPage = () => {
                 height: 0.05,
               }}
             />
-            <IngredientsTable recipe={recipe} porce={portions} />
+            <IngredientsTable
+              ingredients={recipe.data?.ingredients}
+              portions={portions}
+            />
           </Flex>
           <Flex flex="2" direction="column">
             <Box ml={5}>

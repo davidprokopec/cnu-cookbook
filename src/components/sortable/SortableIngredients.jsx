@@ -1,5 +1,6 @@
 import { AddIcon } from '@chakra-ui/icons';
 import {
+  Box,
   Button,
   Flex,
   Input,
@@ -12,9 +13,10 @@ import {
   NumberInputStepper,
   Text,
 } from '@chakra-ui/react';
-import { SortableItem, SortableList } from '@thaddeusjiang/react-sortable-list';
 import { useState } from 'react';
-import { CustomSortableItem } from './CustomSortableItem';
+import { SortableContainer } from 'react-sortable-hoc';
+import { SortableItem } from './SortableItem';
+import { arrayMove } from '../../util/arrayMove';
 
 export const SortableIngredients = ({
   ingredients,
@@ -28,6 +30,25 @@ export const SortableIngredients = ({
   groupName,
   setGroupName,
 }) => {
+  const SortableList = SortableContainer(({ items }) => {
+    return (
+      <Box>
+        {items.map((item, index) => (
+          <SortableItem
+            key={item.id}
+            index={index}
+            id={item.id}
+            title={item.name}
+            amount={item.amount}
+            amountUnit={item.amountUnit}
+            isGroup={item.isGroup}
+            handleRemoveIngredient={handleRemoveIngredient}
+          />
+        ))}
+      </Box>
+    );
+  });
+
   const [id, setId] = useState(1);
 
   const handleAddIngredient = () => {
@@ -63,6 +84,9 @@ export const SortableIngredients = ({
     setIngredients(newIngredients);
   };
 
+  const onSortEnd = ({ oldIndex, newIndex }) => {
+    setIngredients(arrayMove(ingredients, oldIndex, newIndex));
+  };
   return (
     <>
       <Flex direction="column" mt={5}>
@@ -71,24 +95,11 @@ export const SortableIngredients = ({
             Zatím žádné ingredience.
           </Text>
         ) : (
-          <SortableList items={ingredients} setItems={setIngredients}>
-            {({ items }) => (
-              <>
-                {items.map((item) => (
-                  <SortableItem key={item.id} id={item.id}>
-                    <CustomSortableItem
-                      id={item.id}
-                      name={item.name}
-                      amount={item.amount}
-                      amountUnit={item.amountUnit}
-                      isGroup={item.isGroup}
-                      handleRemoveIngredient={handleRemoveIngredient}
-                    />
-                  </SortableItem>
-                ))}
-              </>
-            )}
-          </SortableList>
+          <SortableList
+            items={ingredients}
+            onSortEnd={onSortEnd}
+            useDragHandle
+          />
         )}
 
         <Flex direction="column">
@@ -131,6 +142,11 @@ export const SortableIngredients = ({
             <Input
               value={ingredientName}
               onChange={(e) => setIngredientName(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && ingredientName) {
+                  handleAddIngredient();
+                }
+              }}
             />
             <InputRightAddon
               p={0}
@@ -155,6 +171,11 @@ export const SortableIngredients = ({
             <Input
               value={groupName}
               onChange={(e) => setGroupName(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && groupName) {
+                  handleAddGroup();
+                }
+              }}
             />
             <InputRightAddon
               p={0}
