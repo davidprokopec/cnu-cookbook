@@ -25,7 +25,7 @@ export default function DeleteRecipeDialog({ isOpen, onClose, recipe }) {
         title: 'Recept byl úspěšně smazán',
         position: 'top',
         status: 'success',
-        duration: 9000,
+        duration: 5000,
       });
     });
   };

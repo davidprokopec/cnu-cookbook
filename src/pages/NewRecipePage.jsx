@@ -1,5 +1,5 @@
 import { CheckIcon } from '@chakra-ui/icons';
-import { Button, Flex, Heading } from '@chakra-ui/react';
+import { Button, Flex, Heading, useToast } from '@chakra-ui/react';
 import MDEditor from '@uiw/react-md-editor';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -30,6 +30,8 @@ export const NewRecipePage = () => {
 
   const navigate = useNavigate();
 
+  const toast = useToast();
+
   const handleSave = () => {
     let sideDish = sideDishes
       .map((i) => {
@@ -47,10 +49,34 @@ export const NewRecipePage = () => {
       ingredients,
     };
 
-    console.log(recipe);
-    api.post('recipes/', recipe).then(({ data }) => {
-      console.log('response', data);
-    });
+    api
+      .post('recipes/', recipe)
+      .then(({ data }) => {
+        navigate('/recept/' + data.slug);
+        toast({
+          title: 'Recept byl úspěšně uložen',
+          position: 'top',
+          status: 'success',
+          duration: 5000,
+        });
+      })
+      .catch((error) => {
+        if (error.response.data.code === 11000) {
+          toast({
+            title: 'Název již existuje',
+            position: 'top',
+            status: 'error',
+            duration: 5000,
+          });
+        } else {
+          toast({
+            title: 'Něco se nepodařilo',
+            position: 'top',
+            status: 'error',
+            duration: 5000,
+          });
+        }
+      });
   };
 
   return (
