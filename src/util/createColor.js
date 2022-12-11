@@ -2,7 +2,7 @@ import Color from 'color';
 
 export const createColor = (hex, time) => {
   const INPUT_START = 0;
-  const INPUT_END = 300;
+  const INPUT_END = 780;
   const OUTPUT_START = 1;
   const OUTPUT_END = 0;
 

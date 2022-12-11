@@ -11,19 +11,14 @@ export const SideDishes = ({ sideDishes, setSideDishes }) => {
   }, []);
 
   const fetchData = () => {
-    api
-      .get('recipes/side-dishes')
-      .then(({ data }) => {
-        const arrayOfObjects = data.map((item) => ({
-          value: item,
-          label: item,
-        }));
+    api.get('recipes/side-dishes').then(({ data }) => {
+      const arrayOfObjects = data.map((item) => ({
+        value: item,
+        label: item,
+      }));
 
-        setSideDishesAutocomplete(arrayOfObjects);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      setSideDishesAutocomplete(arrayOfObjects);
+    });
   };
 
   return (

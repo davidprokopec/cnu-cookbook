@@ -25,7 +25,6 @@ export const SortableItem = SortableElement(
             <DeleteIcon
               _hover={{ cursor: 'pointer' }}
               onClick={() => {
-                console.log('smazano ' + id);
                 handleRemoveIngredient(id);
               }}
               justifySelf="flex-start"
@@ -55,7 +54,6 @@ export const SortableItem = SortableElement(
               justifySelf="flex-start"
               color="red"
               onClick={() => {
-                console.log('smazano ' + id);
                 handleRemoveIngredient(id);
               }}
             />

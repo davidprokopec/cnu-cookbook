@@ -48,13 +48,12 @@ export const RecipeEditPage = () => {
   const onFetchSuccess = ({ data }) => {
     setState({ isLoading: false, isError: false });
 
-    console.log(data);
-
-    const sideDishObj = data.sideDish.split(', ').map((item) => ({
-      value: item,
-      label: item,
-    }));
-    console.log(sideDishObj);
+    const sideDishObj = data.sideDish
+      ? data.sideDish.split(', ').map((item) => ({
+          value: item,
+          label: item,
+        }))
+      : undefined;
 
     setId(data._id);
     setTitle(data.title);
@@ -66,7 +65,6 @@ export const RecipeEditPage = () => {
   };
 
   const onFetchError = (error) => {
-    console.log(error);
     setState({ isLoading: false, isError: true });
   };
 
@@ -215,7 +213,6 @@ export const RecipeEditPage = () => {
           />
         </Flex>
       </Flex>
-      ;
     </>
   );
 };

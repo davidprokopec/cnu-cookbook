@@ -1,7 +1,7 @@
 import { CheckIcon } from '@chakra-ui/icons';
 import { Button, Flex, Heading, useToast } from '@chakra-ui/react';
 import MDEditor from '@uiw/react-md-editor';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import rehypeSanitize from 'rehype-sanitize';
 import { api } from '../api';
@@ -157,7 +157,6 @@ export const NewRecipePage = () => {
           />
         </Flex>
       </Flex>
-      ;
     </>
   );
 };

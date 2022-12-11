@@ -63,6 +63,7 @@ export function RecipeListPage() {
         mb={10}
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
+        placeholder="Vyhledat recept"
       />
 
       {state.isLoading && <Loading />}

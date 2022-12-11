@@ -61,8 +61,6 @@ export const RecipeDetailPage = () => {
   if (recipe.isLoading) return <Loading />;
   if (recipe.isError) return <Error>Recept nelze načíst</Error>;
 
-  console.log('recipe', recipe);
-
   return (
     <>
       <Box p={5}>
