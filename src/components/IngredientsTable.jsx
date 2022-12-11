@@ -1,5 +1,4 @@
 import { Table, TableContainer, Tbody, Td, Text, Tr } from '@chakra-ui/react';
-import { Loading } from './layout/Loading';
 
 const Ingredient = ({ _id, name, amount, amountUnit, portions, isGroup }) => {
   if (isGroup)
