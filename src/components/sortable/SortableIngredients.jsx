@@ -18,6 +18,25 @@ import { SortableContainer } from 'react-sortable-hoc';
 import { SortableItem } from './SortableItem';
 import { arrayMove } from '../../util/arrayMove';
 
+const SortableList = SortableContainer(({ items, handleRemoveIngredient }) => {
+  return (
+    <Box>
+      {items.map((item, index) => (
+        <SortableItem
+          key={item.id}
+          index={index}
+          id={item.id}
+          title={item.name}
+          amount={item.amount}
+          amountUnit={item.amountUnit}
+          isGroup={item.isGroup}
+          handleRemoveIngredient={handleRemoveIngredient}
+        />
+      ))}
+    </Box>
+  );
+});
+
 export const SortableIngredients = ({
   ingredients,
   setIngredients,
@@ -30,25 +49,6 @@ export const SortableIngredients = ({
   groupName,
   setGroupName,
 }) => {
-  const SortableList = SortableContainer(({ items }) => {
-    return (
-      <Box>
-        {items.map((item, index) => (
-          <SortableItem
-            key={item.id}
-            index={index}
-            id={item.id}
-            title={item.name}
-            amount={item.amount}
-            amountUnit={item.amountUnit}
-            isGroup={item.isGroup}
-            handleRemoveIngredient={handleRemoveIngredient}
-          />
-        ))}
-      </Box>
-    );
-  });
-
   const [id, setId] = useState(1);
 
   const handleAddIngredient = () => {
@@ -97,6 +97,7 @@ export const SortableIngredients = ({
         ) : (
           <SortableList
             items={ingredients}
+            handleRemoveIngredient={handleRemoveIngredient}
             onSortEnd={onSortEnd}
             useDragHandle
           />
